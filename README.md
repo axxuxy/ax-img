@@ -1,6 +1,6 @@
 # ax-img
 
-本人写的Y站、K站集图器，欢迎收藏一波。话说最近在找工作有人要吗？(●'◡'●)。简历地址 https://axxu.xyz/my。
+本人写的Y站、K站集图器，欢迎收藏一波。话说最近在找工作有人要吗？(●'◡'●)。简历地址 https://axxu.xyz/my
 
 使用框架electron vue element-ui
 
