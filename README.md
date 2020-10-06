@@ -10,7 +10,7 @@
 
     npm init
     npm run electron:build
-安装项目依赖，可能碰到 electron 无法安装，emm 网上有相关教程自行解决。end
+安装项目依赖，可能碰到 electron 无法安装，emm 网上有相关教程自行解决。end  
 若是喜欢用 yarn 的话使用
 
     yarn init
