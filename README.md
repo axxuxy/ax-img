@@ -1,6 +1,6 @@
 # ax-img
 
-本人写的Y站、K站集图器，欢迎收藏一波。话说最近在找工作有人要吗？(●'◡'●)。简历地址 https://axxu.xyz/my。
+本人写的Y站、K站集图器，欢迎收藏一波。话说最近在找工作有人要吗？(●'◡'●)。简历地址 https://axxu.xyz/my
 
 使用框架electron vue element-ui
 
@@ -10,7 +10,7 @@
 
     npm init
     npm run electron:build
-安装项目依赖，可能碰到 electron 无法安装，emm 网上有相关教程自行解决。end
+安装项目依赖，可能碰到 electron 无法安装，emm 网上有相关教程自行解决。end  
 若是喜欢用 yarn 的话使用
 
     yarn init
