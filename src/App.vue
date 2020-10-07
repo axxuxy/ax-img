@@ -39,7 +39,7 @@ export default {
         .catch(() => {
           this.$alert(
             "若是无法使用Y站可以前往本程序目录：\n" +
-              __dirname +
+              path.resolve("./") +
               "\n查看readme.txt修改hosts教程",
             "确认",
             {

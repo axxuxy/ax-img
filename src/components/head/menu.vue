@@ -23,7 +23,7 @@
           <p>
             <span class="website" v-text="key + '：'"></span>
             <button @click="_dir(website, key)">选择文件夹</button>
-            <button @click="_dir(website, key)">打开文件夹</button>
+            <button @click="_open_dir(website)">打开文件夹</button>
             <button @click="_dir(website, key, null)">重置</button>
           </p>
           <p><span>默认下载目录为：</span><span v-text="website.dir"></span></p>
@@ -40,6 +40,7 @@
 
 <script type="text/ecmascript-6">
 import mkdir from "tools/mkdir";
+import child_process from "child_process";
 
 import { createNamespacedHelpers } from "vuex";
 const { mapState } = createNamespacedHelpers("website");
@@ -90,6 +91,9 @@ export default {
     ...mapState(["websites"])
   },
   methods: {
+    _open_dir({ dir }) {
+      child_process.exec("explorer " + dir);
+    },
     _rating(ev, website) {
       window.localStorage.setItem(website + "-rating", ev.target.value);
     },

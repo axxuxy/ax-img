@@ -35,11 +35,10 @@ export default {
     adddown({ down }, unit) {
       down.unshift(unit);
     },
-    redown({ down }, key) {
-      down.splice(
-        down.findIndex(({ name }) => name === key),
-        1
-      );
+    redown({ down }, unit) {
+      let index = down.findIndex(val => val === unit);
+      if (index === -1) return;
+      down.splice(index, 1);
     },
     adddowning({ downing }, unit) {
       downing.add(unit);
@@ -50,11 +49,11 @@ export default {
     adddowned({ downed }, unit) {
       downed.unshift(unit);
     },
-    redowned({ downed }, key) {
-      downed.splice(
-        downed.findIndex(({ name }) => name === key),
-        1
-      );
+    redowned({ downed }, unit) {
+      let index = downed.findIndex(val => {
+        return val === unit;
+      });
+      if (index >= 0) downed.splice(index, 1);
     },
     down_count(state, add) {
       add ? state.down_count++ : state.down_count--;
@@ -256,8 +255,9 @@ export default {
         creat_satrt
       };
       window.localStorage.setItem(key, JSON.stringify(save));
-      commit("redown", key);
+      commit("redown", unit);
       save.name = name;
+      save.show=false;
       commit("adddowned", save);
     },
     // 下一个下载，下载完成后停止正在下载的任务后运行

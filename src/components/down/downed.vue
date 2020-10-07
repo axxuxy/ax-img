@@ -9,7 +9,7 @@
     <p class="button">
       <button @click="_redown">重新下载</button>
       <button
-        @click="show = !show"
+        @click="unit.show = !show"
         v-text="show ? '隐藏图片' : '显示图片'"
       ></button>
       <button title="在文件夹中打开" @click="_openFile">打开文件</button>
@@ -36,11 +36,6 @@ export default {
   props: {
     unit: Object
   },
-  data() {
-    return {
-      show: false
-    };
-  },
   computed: {
     path() {
       return this.unit.path;
@@ -48,6 +43,9 @@ export default {
     name() {
       let { website, type, id } = this.unit;
       return website + "-" + id + (type ? "-" + type : "");
+    },
+    show(){
+      return this.unit.show;
     },
     downed_time() {
       return this._time(this.unit.downed);
@@ -69,7 +67,6 @@ export default {
       return width + " ✖ " + height;
     }
   },
-  components: {},
   methods: {
     ...mapMutations(["redowned"]),
     ...mapActions(["_re_down"]),
@@ -89,7 +86,7 @@ export default {
       child_process.exec("explorer /select," + this.path);
     },
     _reFile() {
-      let { path, unit, name } = this;
+      let { path, name, unit } = this;
       if (fs.existsSync(path)) fs.unlinkSync(path);
       this.redowned(unit);
       window.localStorage.removeItem(name);
