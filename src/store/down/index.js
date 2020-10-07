@@ -37,8 +37,7 @@ export default {
     },
     redown({ down }, unit) {
       let index = down.findIndex(val => val === unit);
-      if (index === -1) return;
-      down.splice(index, 1);
+      if (index >= 0) down.splice(index, 1);
     },
     adddowning({ downing }, unit) {
       downing.add(unit);
@@ -50,9 +49,7 @@ export default {
       downed.unshift(unit);
     },
     redowned({ downed }, unit) {
-      let index = downed.findIndex(val => {
-        return val === unit;
-      });
+      let index = downed.findIndex(val => val === unit);
       if (index >= 0) downed.splice(index, 1);
     },
     down_count(state, add) {
@@ -257,7 +254,7 @@ export default {
       window.localStorage.setItem(key, JSON.stringify(save));
       commit("redown", unit);
       save.name = name;
-      save.show=false;
+      save.show = false;
       commit("adddowned", save);
     },
     // 下一个下载，下载完成后停止正在下载的任务后运行
@@ -281,16 +278,26 @@ export default {
     },
     // 重新下载图片
     _re_down({ commit, dispatch, rootState }, { unit, key }) {
-      Object.assign(unit, {
+      let { website, id, type, url, size, ext, width, height } = unit;
+      let newUnit = {
+        website,
+        type,
+        id,
+        url,
+        size,
+        ext,
+        width,
+        height,
         creat: new Date().getTime(),
         creat_satrt: rootState.satrt,
         name: key,
         loadsize: 0,
-        loading: 0
-      });
-      commit("redowned", { unit, key });
-      commit("adddown", unit);
-      dispatch("_downing", unit);
+        loading: 0,
+        state: "await"
+      };
+      commit("redowned", unit);
+      commit("adddown", newUnit);
+      dispatch("_downing", newUnit);
     }
   }
 };

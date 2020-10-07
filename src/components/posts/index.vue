@@ -30,7 +30,10 @@
           <p v-text="post.id"></p>
         </li>
       </ul>
-      <p class="open_error" v-if="open_error">
+      <p v-if="is_load" class="await_load">
+        <img src="~assets/img/await_load.svg" />
+      </p>
+      <p class="open_error" v-else-if="open_error">
         <span @click="open_error = false">拉取帖子失败，请点击重试</span>
       </p>
       <p v-else-if="has_posts" class="more" :class="{ is: more }">
@@ -39,8 +42,8 @@
           @click="_more_posts"
         ></span>
       </p>
-      <p v-else class="await_load">
-        <img src="~assets/img/await_load.svg" />
+      <p v-else>
+        <span>该标签没有帖子。。。</span>
       </p>
     </div>
     <post
@@ -77,7 +80,8 @@ export default {
       more: true,
       open_error: false,
       rating: "",
-      title: null
+      title: null,
+      is_load: false
     };
   },
   watch: {
@@ -123,6 +127,7 @@ export default {
       };
       let limit = 100;
       let url = `${this.url}?limit=${limit}${tag ? "&tags=" + tag : ""}`;
+      this.is_load = true;
       getPosts(url, ({ file_size, loading, count }) => {
         load.state = "loading";
         if (file_size) {
@@ -133,11 +138,13 @@ export default {
           if (data.length < limit) this.more = false;
           this.posts.push(...data);
           load.state = "ok";
+          this.is_load = false;
         })
         .catch(error => {
           load.state = "error";
           this.more = true;
           if (this.posts.length === 0) this.open_error = true;
+          this.is_load = false;
           this.$message.error("获取帖子" + (error === 2 ? "超时" : "失败"));
         });
     },
@@ -179,7 +186,7 @@ export default {
     },
     _re_get_posts() {
       this.posts = [];
-      this._get_posts(this.tag,true);
+      this._get_posts(this.tag, true);
     },
     _re_rating() {
       let { websites, website, tag = "" } = this;
