@@ -1,5 +1,5 @@
 <template>
-  <div class="downed-unit">
+  <div class="downed-unit" :class="{'show-img':show}">
     <p>
       <span v-text="name"></span
       ><span v-text="'创建时间：' + downed_time"></span
@@ -9,7 +9,7 @@
     <p class="button">
       <button @click="_redown">重新下载</button>
       <button
-        @click="unit.show = !show"
+        @click="show=!show"
         v-text="show ? '隐藏图片' : '显示图片'"
       ></button>
       <button title="在文件夹中打开" @click="_openFile">打开文件</button>
@@ -36,6 +36,11 @@ export default {
   props: {
     unit: Object
   },
+  data(){
+    return {
+      show:false
+    }
+  },
   computed: {
     path() {
       return this.unit.path;
@@ -43,9 +48,6 @@ export default {
     name() {
       let { website, type, id } = this.unit;
       return website + "-" + id + (type ? "-" + type : "");
-    },
-    show() {
-      return this.unit.show;
     },
     downed_time() {
       return this._time(this.unit.downed);
@@ -102,6 +104,10 @@ export default {
 <style lang="scss" scoped>
 .downed-unit {
   padding: 6px 50px;
+  transition: padding 0.36s;
+  &.show-img{
+    padding: 12px 50px;
+  }
   p {
     padding: 8px 0;
     display: flex;
@@ -159,7 +165,7 @@ export default {
   }
   .img {
     background-color: #0009;
-    padding: 0px 15px;
+    padding: 15px;
     border-radius: 5px;
     overflow: hidden;
     &.img-enter-active,
@@ -182,7 +188,6 @@ export default {
       height: auto;
       margin: auto;
       max-height: 800px;
-      padding: 15px;
     }
   }
 }
