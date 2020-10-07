@@ -114,9 +114,9 @@ export default {
       }
       this._get_posts(tag);
     },
-    _get_posts(tag) {
+    _get_posts(tag, re) {
       let load = this.load;
-      if (load && load.state !== "ok" && load.state !== "error") return;
+      if (!re && load && load.state !== "ok" && load.state !== "error") return;
       load = this.load = {
         state: "start",
         loading: 0
@@ -179,7 +179,7 @@ export default {
     },
     _re_get_posts() {
       this.posts = [];
-      this._get_posts(this.tag);
+      this._get_posts(this.tag,true);
     },
     _re_rating() {
       let { websites, website, tag = "" } = this;
@@ -191,8 +191,8 @@ export default {
         tag = tag.replace(re, rating);
       } else tag = tag + " " + rating;
       tag = tag.trim();
-      this._re_get_posts(tag);
       tag = this.tag = tag ? tag : undefined;
+      this._re_get_posts();
     }
   },
   created() {
