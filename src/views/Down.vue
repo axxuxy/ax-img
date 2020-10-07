@@ -4,7 +4,7 @@
       <div class="downing" v-if="hasDown">
         <p>下载中</p>
         <ul>
-          <li class="unit" v-for="(unit, key) in down" :key="key">
+          <li class="unit" v-for="unit in down" :key="unit.name">
             <v-downing :unit="unit"></v-downing>
           </li>
         </ul>
@@ -16,7 +16,7 @@
       <div class="downed" v-if="hasDowned">
         <p>已下载</p>
         <ul>
-          <li class="unit" v-for="(unit, index) in downed" :key="index">
+          <li class="unit" v-for="unit in downed" :key="unit.downed">
             <v-downed :unit="unit"></v-downed>
           </li>
         </ul>

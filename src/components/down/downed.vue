@@ -44,7 +44,7 @@ export default {
       let { website, type, id } = this.unit;
       return website + "-" + id + (type ? "-" + type : "");
     },
-    show(){
+    show() {
       return this.unit.show;
     },
     downed_time() {
@@ -73,7 +73,7 @@ export default {
     _time(time) {
       let date = new Date(time);
       let y = date.getFullYear().toString(),
-        m = date.getMonth() + "1",
+        m = (date.getMonth() + 1).toString(),
         d = date.getDate().toString(),
         h = date.getHours().toString(),
         mi = date.getMinutes().toString();
@@ -101,7 +101,7 @@ export default {
 
 <style lang="scss" scoped>
 .downed-unit {
-  padding: 12px 50px;
+  padding: 6px 50px;
   p {
     padding: 8px 0;
     display: flex;
@@ -125,16 +125,14 @@ export default {
       }
     }
     &.button {
-      height: 0;
-      padding: 0;
+      padding-top: 2px;
       justify-content: space-between;
       overflow: hidden;
-      opacity: 0;
-      transition: all 0.5s 0.2s;
+      opacity: 1;
     }
     button {
-      width: 145px;
-      height: 36px;
+      width: 136px;
+      height: 32px;
       font-size: 16px;
       color: #366;
       &:nth-child(1) {
@@ -160,14 +158,21 @@ export default {
     }
   }
   .img {
-    max-height: 0;
     background-color: #0009;
     padding: 0px 15px;
     border-radius: 5px;
     overflow: hidden;
-    &,
-    img {
-      transition: all 0.5s;
+    &.img-enter-active,
+    &.img-leave-active {
+      transition: all 1s;
+      max-height: 800px;
+    }
+    &.img-enter,
+    &.img-leave-to {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
+      padding: 0 15px;
     }
     img {
       display: block;
@@ -176,38 +181,8 @@ export default {
       width: auto;
       height: auto;
       margin: auto;
-      opacity: 0;
-    }
-  }
-  &:hover {
-    p.button {
-      padding: 8px 0;
-      height: 36px;
-      opacity: 1;
-      transition-delay: 0.2s;
-    }
-    .img {
       max-height: 800px;
-      margin: 12px 0 18px;
       padding: 15px;
-      &,
-      img {
-        transition-delay: 1s;
-      }
-      img {
-        opacity: 1;
-      }
-      &.img-enter-active,
-      &.img-leave-active {
-        transition: all 1s;
-      }
-      &.img-enter,
-      &.img-leave-to {
-        opacity: 0;
-        max-height: 0;
-        margin: 0;
-        padding: 0 15px;
-      }
     }
   }
 }
