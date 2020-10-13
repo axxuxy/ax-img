@@ -1,0 +1,14 @@
+<svg width="100" height="20" viewBox="0 0 80 20" xmlns="http://www.w3.org/2000/svg">
+  <circle fill="#666">
+    <animate attributeName="r" dur="1.5s" keyTimes="0;0.5;1" values="5;10;5" repeatCount="indefinite" />
+    <animateMotion path="M0,10H90" dur="1.5s" repeatCount="indefinite" />
+  </circle>
+  <circle fill="#666">
+    <animate begin="0.5s" attributeName="r" dur="1.5s" keyTimes="0;0.5;1" values="5;10;5" repeatCount="indefinite" />
+    <animateMotion begin="0.5s" path="M0,10H90" dur="1.5s" repeatCount="indefinite" />
+  </circle>
+  <circle fill="#666">
+    <animate begin="1s" attributeName="r" dur="1.5s" keyTimes="0;0.5;1" values="5;10;5" repeatCount="indefinite" />
+    <animateMotion begin="1s" path="M0,10H90" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>
